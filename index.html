@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <button onclick="getM3u8AndPlay()">play</button>
+  </div>
+  <video id="video" autoplay controls></video>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+  function getM3u8AndPlay() {
+    const video = document.getElementById('video');
+    const videoSrc = 'http://localhost:8888/movie.m3u8';
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    }
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = videoSrc;
+    }
+  }
+</script>
+
+</html>
